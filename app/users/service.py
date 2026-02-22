@@ -1,4 +1,4 @@
-from fastapi import Depends, HTTPException
+from fastapi import Depends
 from sqlalchemy import select, delete
 from .models import User
 from ..database import get_db_session
@@ -21,7 +21,7 @@ class UsersService:
         result = await self.db.execute(select(User).where(User.id == user_id))
         user = result.scalar_one_or_none()
         if user is None:
-            raise HTTPException(status_code=404, detail="User not found")
+            return user
         await check_user_permission(user_id, current_user)
         for field, value in user_data.model_dump(exclude_unset=True).items():
             setattr(user, field, value)
