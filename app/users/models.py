@@ -1,7 +1,6 @@
 from ..database import Base
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, LargeBinary, CheckConstraint
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, LargeBinary
 from sqlalchemy.orm import relationship
-from datetime import datetime, timezone
 
 class User(Base):
     __tablename__ = 'users'

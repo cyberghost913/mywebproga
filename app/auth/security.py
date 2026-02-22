@@ -1,6 +1,10 @@
-TOKEN_ALGORITHM = "HS256"
-ACCESS_TOKEN_LIFETIME = 15  # minutes
-TOKEN_SECRET = "secret"
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+TOKEN_ALGORITHM = os.getenv("TOKEN_ALGORITHM")
+ACCESS_TOKEN_LIFETIME = int(os.getenv("ACCESS_TOKEN_LIFETIME"))
+TOKEN_SECRET = os.getenv("TOKEN_SECRET")
 
 from .utils import verify_password
 

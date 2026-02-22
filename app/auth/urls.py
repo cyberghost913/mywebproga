@@ -4,7 +4,7 @@ from typing import Annotated
 from fastapi.security import OAuth2PasswordRequestForm
 from .github import github_router
 from .schemas import AccessToken
-from .depends import get_oauth_user, check_password, check_refresh_token
+from .depends import get_oauth_user, check_password, check_refresh_token, get_oauth_admin
 from .service import AuthService, get_auth_service
 
 router = APIRouter()

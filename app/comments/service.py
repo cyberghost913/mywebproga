@@ -1,4 +1,4 @@
-from fastapi import HTTPException, Depends
+from fastapi import Depends
 from sqlalchemy import select, delete
 from .models import Comment
 from ..database import get_db_session
@@ -13,7 +13,7 @@ class CommentService:
         result = await self.db.execute(select(News).where(News.id == comment.news_id))
         news = result.scalar_one_or_none()
         if not news:
-            raise HTTPException(status_code=404, detail="News not found")
+            return None
         comment_data = comment.model_dump()
         comment_data["author_id"] = user_id
         new_comment = Comment(**comment_data)
@@ -30,7 +30,7 @@ class CommentService:
         result = await self.db.execute(select(Comment).where(Comment.id == comment_id))
         comment = result.scalar_one_or_none()
         if comment is None:
-            raise HTTPException(status_code=404, detail="Comment not found")
+            return None
         await check_user_permission(comment.author_id, current_user) 
         for field, value in comment_data.model_dump(exclude_unset=True).items():
             setattr(comment, field, value)
@@ -42,7 +42,7 @@ class CommentService:
         result = await self.db.execute(select(Comment.author_id).where(Comment.id == comment_id))
         author_id = result.scalar_one_or_none()
         if author_id is None:
-            raise HTTPException(status_code=404, detail="Comment not found")
+            return None
         await check_user_permission(author_id, current_user) 
         await self.db.execute(delete(Comment).where(Comment.id == comment_id))
         await self.db.commit()

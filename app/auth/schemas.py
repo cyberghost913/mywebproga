@@ -1,6 +1,5 @@
-from pydantic import BaseModel, Field, field_serializer
-from uuid import UUID, uuid4
-from datetime import datetime, timedelta, timezone
+from pydantic import BaseModel, field_serializer
+from datetime import datetime
 from typing import Optional
 
 class User(BaseModel):
