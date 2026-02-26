@@ -214,4 +214,7 @@ def downgrade() -> None:
     op.execute("DELETE FROM sessions")
     op.execute("DELETE FROM users")
     
+    op.execute("ALTER SEQUENCE users_id_seq RESTART WITH 1")
+    op.execute("ALTER SEQUENCE news_id_seq RESTART WITH 1")
+    op.execute("ALTER SEQUENCE comments_id_seq RESTART WITH 1")
     # ### end Alembic commands ###

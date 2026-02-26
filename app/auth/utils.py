@@ -22,11 +22,11 @@ def verify_password(password: str, hashed_password: str) -> bool:
 def create_refresh_token() -> str:
     return hashlib.sha256(os.urandom(32)).hexdigest()
 
-def create_access_token(username: str, is_admin: bool, is_active: bool, id: int) -> str:
+def create_access_token(username: str, is_admin: bool, is_author: bool, id: int) -> str:
     payload = TokenPayload(
         username=username,
         is_admin=is_admin,
-        is_active=is_active,
+        is_author=is_author,
         id=id,
         iat=datetime.now(timezone.utc),
         exp=datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_LIFETIME)
